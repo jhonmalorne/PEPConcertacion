@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PEP · Portal de Estudiantes y Profesionales · Concertación</title>
+<meta name="description" content="Conexión, conocimiento y oportunidades. Recursos educativos, carreras, cursos y escuelas de Los Guayos, Carabobo.">
+<meta name="theme-color" content="#0b2a6f">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{--navy:#0b2a6f;--blue:#1740a8;--green:#6db33f;--red:#e31e24;--bg:#f4f7fc;--card:#fff;--ink:#14213d;--mut:#5a6785;--line:#dde4f1;--r:16px}
+[data-t=dark]{--bg:#0a1230;--card:#111c44;--ink:#eaf0ff;--mut:#9fb0d9;--line:#233165}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+.w{width:min(1160px,92%);margin:auto}
+section{padding:64px 0}
+h1,h2,h3{line-height:1.15;letter-spacing:-.01em}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);color:var(--navy);margin-bottom:10px}
+[data-t=dark] h2{color:#fff}
+h2 span{color:var(--green)}
+.lead{color:var(--mut);max-width:62ch;margin-bottom:28px}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+header{position:sticky;top:0;z-index:50;background:var(--navy);color:#fff;box-shadow:0 2px 14px #0004}
+.nav{display:flex;align-items:center;gap:14px;height:64px}
+.nav>img{height:40px;background:#fff;border-radius:8px;padding:3px}
+.brand{font-weight:800;font-size:1.2rem;margin-right:auto}
+.brand small{display:block;font-size:.62rem;font-weight:500;opacity:.8;margin-top:-4px}
+nav ul{display:flex;gap:4px;list-style:none;padding:0}
+nav a{text-decoration:none;padding:8px 12px;border-radius:99px;font-size:.92rem;font-weight:600}
+nav a:hover,nav a.on{background:var(--green)}
+.ib{background:#ffffff1f;border:0;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:pointer}
+#bg{display:none}
+@media(max-width:860px){#bg{display:block}nav{position:absolute;top:64px;left:0;right:0;background:var(--navy);max-height:0;overflow:hidden;transition:max-height .3s}nav.open{max-height:420px}nav ul{flex-direction:column;padding:10px 4%}}
+.hero{background:linear-gradient(180deg,#fff,var(--bg));padding:28px 0 40px}
+[data-t=dark] .hero{background:linear-gradient(180deg,#0d1a4a,var(--bg))}
+.hero img.ban{border-radius:var(--r);box-shadow:0 18px 50px #0b2a6f33;width:100%}
+.hero .tag{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:26px}
+.hero h1{font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--navy);max-width:20ch}
+[data-t=dark] .hero h1{color:#fff}
+.hero h1 b{color:var(--blue)}.hero h1 i{color:var(--green);font-style:normal}
+.btn{display:inline-block;background:var(--green);color:#fff;font-weight:700;text-decoration:none;padding:13px 24px;border-radius:99px;border:0;cursor:pointer;font-size:1rem;transition:transform .15s,background .2s}
+.btn:hover{transform:translateY(-2px);background:#5a9c31}
+.btn.o{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+[data-t=dark] .btn.o{color:#fff;border-color:#fff}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:30px}
+.stat{background:var(--navy);color:#fff;border-radius:var(--r);padding:18px;text-align:center;border-bottom:5px solid var(--green)}
+.stat b{font-size:2rem;display:block}
+.band{background:var(--navy);color:#fff;clip-path:polygon(0 0,100% 0,100% 100%,0 calc(100% - 28px));padding-bottom:90px}
+.band h2{color:#fff}.band .lead{color:#c9d6f7}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px #0b2a6f22}
+.card .ic{font-size:1.9rem}
+.band .card{background:#ffffff12;border-color:#ffffff26;color:#fff}
+.band .card p{color:#c9d6f7;font-size:.92rem}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tab{background:var(--card);border:2px solid var(--line);color:var(--ink);padding:9px 18px;border-radius:99px;font-weight:700;cursor:pointer;font-size:.95rem}
+.tab[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.res{display:flex;flex-direction:column;gap:10px}
+.res a{display:flex;align-items:center;gap:14px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--green);border-radius:12px;padding:14px 16px;transition:transform .15s}
+.res a:hover{transform:translateX(6px)}
+.res b{display:block}.res small{color:var(--mut)}
+.pill{margin-left:auto;background:var(--red);color:#fff;border-radius:99px;padding:3px 12px;font-size:.78rem;font-weight:700;white-space:nowrap}
+.empty{background:var(--card);border:2px dashed var(--line);border-radius:var(--r);padding:28px;text-align:center;color:var(--mut)}
+input,select,textarea{width:100%;padding:13px 14px;border:2px solid var(--line);border-radius:12px;font:inherit;background:var(--card);color:var(--ink)}
+input:focus,select:focus{border-color:var(--blue);outline:0}
+.sr{margin-bottom:18px}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;padding:15px 18px;font-weight:700;color:var(--navy);list-style:none;display:flex;justify-content:space-between;gap:10px}
+[data-t=dark] summary{color:#fff}
+summary::after{content:"+";color:var(--green);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"−"}
+details ul{padding:0 18px 16px;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 14px}
+details li::before{content:"▸ ";color:var(--green)}
+details a.l{display:inline-block;margin:0 18px 16px;color:var(--blue);font-weight:700}
+[data-t=dark] details a.l{color:#8fb0ff}
+.two{display:grid;gap:22px;grid-template-columns:1fr 1fr}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.course{border-top:6px solid var(--red)}
+.course h3{color:var(--navy);margin:6px 0}
+[data-t=dark] .course h3{color:#fff}
+#map{height:380px;border-radius:var(--r);border:1px solid var(--line);margin-bottom:22px;z-index:1}
+.sch h3{color:var(--navy);margin-bottom:6px}
+[data-t=dark] .sch h3{color:#fff}
+.sch p{font-size:.93rem;color:var(--mut);margin:3px 0}
+.sch .btns{margin-top:12px}
+.sch .btn{padding:8px 16px;font-size:.88rem}
+form{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:14px}
+label{font-weight:700;font-size:.9rem;display:grid;gap:5px}
+#ok{display:none;background:#e6f6dc;color:#255c0b;border-radius:12px;padding:12px 16px;font-weight:600}
+.cta{background:linear-gradient(120deg,var(--navy),var(--blue));color:#fff;border-radius:24px;padding:40px;text-align:center}
+.cta h2{color:#fff}
+footer{background:var(--navy);color:#c9d6f7;padding:40px 0 22px;margin-top:30px}
+.fg{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+footer h4{color:#fff;margin-bottom:8px}
+footer a{display:block;text-decoration:none;padding:2px 0}
+footer a:hover{color:var(--green)}
+.logos{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.logos img{height:54px;background:#fff;border-radius:10px;padding:4px}
+.soc{display:flex;gap:10px}
+.soc img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+.cp{border-top:1px solid #ffffff26;margin-top:26px;padding-top:16px;font-size:.85rem;text-align:center}
+.wa{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;box-shadow:0 8px 22px #0006}
+.wa img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.rv{opacity:0;transform:translateY(18px);transition:.6s}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header>
+<div class="w nav">
+<img src="logo%20concertacion%20sin%20fondo.png" alt="Concertación" onerror="this.remove()">
+<div class="brand">PEP<small>Portal de Estudiantes y Profesionales</small></div>
+<nav id="nv" aria-label="Principal"><ul>
+<li><a href="#educacion">Educación</a></li><li><a href="#carreras">Carreras</a></li><li><a href="#cursos">Cursos</a></li><li><a href="#escuelas">Escuelas</a></li><li><a href="#registro">Regístrate</a></li></ul></nav>
+<button class="ib" id="th" aria-label="Cambiar tema claro u oscuro">🌙</button>
+<button class="ib" id="bg" aria-label="Abrir menú" aria-expanded="false">☰</button>
+</div>
+</header>
+
+<main>
+<div class="hero"><div class="w">
+<img class="ban" src="PEP.png" alt="PEP: Portal de Estudiantes y Profesionales. Conexión, conocimiento, oportunidades.">
+<div class="tag">
+<h1>Donde docentes, técnicos y profesionales se <b>organizan</b>, <i>aprenden</i> y transforman vidas.</h1>
+<div class="btns"><a class="btn" href="#registro">Regístrate gratis</a><a class="btn o" href="#educacion">Ver recursos</a></div>
+</div>
+<div class="stats" id="st">
+<div class="stat"><b data-n="5">0</b>Niveles educativos</div>
+<div class="stat"><b data-n="14">0</b>Guías y cuadernillos</div>
+<div class="stat"><b data-n="30">0</b>Carreras superiores</div>
+<div class="stat"><b data-n="100" data-s="%">0</b>Gratis</div>
+</div></div></div>
+
+<section class="band"><div class="w rv">
+<h2>Un portal, infinitas posibilidades</h2>
+<p class="lead">Para todos los que educan, enseñan y transforman.</p>
+<div class="grid">
+<div class="card"><div class="ic">👥</div><h3>Regístrate</h3><p>Únete a la red de docentes, técnicos y profesionales.</p></div>
+<div class="card"><div class="ic">🏛️</div><h3>Organiza tu gremio</h3><p>Registra tu gremio y fortalece tu comunidad.</p></div>
+<div class="card"><div class="ic">💻</div><h3>Herramientas para enseñar</h3><p>Recursos, materiales y estrategias didácticas.</p></div>
+<div class="card"><div class="ic">🔧</div><h3>Enseña oficios</h3><p>Comparte tus conocimientos y forma nuevas habilidades.</p></div>
+<div class="card"><div class="ic">💼</div><h3>Oportunidades</h3><p>Conecta, colabora y accede a proyectos, cursos y alianzas.</p></div>
+</div></div></section>
+
+<section id="educacion"><div class="w rv">
+<h2>Educación <span>para todos</span></h2>
+<p class="lead">Elige un nivel y descarga material listo para imprimir o usar en pantalla.</p>
+<div class="tabs" role="tablist" id="tb"></div>
+<div id="rs"></div>
+</div></section>
+
+<section id="carreras" style="background:var(--card)"><div class="w rv">
+<h2>Carreras <span>técnicas y superiores</span></h2>
+<p class="lead">Busca la carrera que te gusta y entra al sitio oficial de cada institución.</p>
+<div class="two" style="margin-bottom:22px">
+<div class="card"><h3>Técnica media</h3><p style="color:var(--mut);margin:6px 0 14px">Filtra qué carrera técnica te gustaría estudiar y crea tu cuenta en INCES.</p><a class="btn" href="https://hacer.inces.gob.ve/" target="_blank" rel="noopener">Ir a INCES</a></div>
+<div class="card"><h3>Todas las carreras del país</h3><p style="color:var(--mut);margin:6px 0 14px">Consulta la oferta académica oficial en OPSU.</p><a class="btn" href="https://loeu.opsu.gob.ve/oferta-academica/" target="_blank" rel="noopener">Ver oferta en OPSU</a></div>
+</div>
+<input class="sr" id="q" type="search" placeholder="Busca una carrera: medicina, contaduría, ingeniería…" aria-label="Buscar carrera">
+<div id="cr"></div>
+<p class="empty" id="ne" hidden>No encontramos esa carrera. Prueba con otra palabra.</p>
+</div></section>
+
+<section id="cursos"><div class="w rv">
+<h2>Cursos <span>para emprendedores</span></h2>
+<p class="lead">Un espacio para que los jóvenes aprendan un oficio. Vende tu talento y prepara el futuro.</p>
+<div class="two">
+<div class="card course"><span class="pill" style="margin:0">Curso</span><h3>Técnico en refrigeración</h3><p style="color:var(--mut)">REFRIMAT-JG</p><div class="btns" style="margin-top:14px"><a class="btn" href="https://wa.me/584129554365?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20curso%20de%20refrigeraci%C3%B3n%20REFRIMAT-JG" target="_blank" rel="noopener">Solicita la información</a><a class="btn o" href="tel:+584129554365">0412-9554365</a></div></div>
+<div class="card" style="border:2px dashed var(--green)"><h3>¿Das capacitaciones?</h3><p style="color:var(--mut);margin:6px 0 14px">Se irán agregando más cursos. Contáctanos para publicar tu ficha de capacitación.</p><a class="btn" href="https://wa.me/584244525765?text=Hola%2C%20quiero%20agregar%20mi%20ficha%20de%20capacitaci%C3%B3n%20en%20PEP" target="_blank" rel="noopener">Agregar mi ficha</a></div>
+</div></div></section>
+
+<section id="escuelas" style="background:var(--card)"><div class="w rv">
+<h2>Escuelas <span>de Los Guayos</span></h2>
+<p class="lead">Encuentra la institución, su horario y cómo llegar.</p>
+<div id="map" role="region" aria-label="Mapa de escuelas"></div>
+<div class="btns" style="margin-bottom:18px"><button class="btn o" id="m1">Estados</button><button class="btn o" id="m2">Municipios y parroquias</button></div>
+<div class="two">
+<article class="card sch"><span class="pill" style="margin:0 0 8px">Pública</span><h3>Escuela Básica Batalla de Junín</h3>
+<p>📍 Vivienda Popular de Los Guayos, II Etapa, Sector 3, Transversal 4 con Calle 1.</p>
+<p>🕖 Lunes a viernes, 7:00 AM a 5:00 PM.</p>
+<p>🎓 Inicial, básica y media general, con música, deporte y tareas dirigidas.</p>
+<div class="btns"><a class="btn" href="https://www.google.com/maps?q=10.188746422836239,-67.91706190123529" target="_blank" rel="noopener">Cómo llegar</a></div></article>
+<article class="card sch"><span class="pill" style="margin:0 0 8px;background:var(--blue)">Privada</span><h3>Unidad Educativa Santa Sofía</h3>
+<p>📍 Urb. Los Cerritos, Paraparal, Los Guayos.</p>
+<p>🎓 Primaria (1.° a 6.°) y Media General (1.° a 5.° año).</p>
+<p>📞 +58 424-4031596 · Instagram y TikTok @uesantasofia</p>
+<div class="btns"><a class="btn" href="https://www.google.com/maps?q=10.16926259434711,-67.91236230283933" target="_blank" rel="noopener">Cómo llegar</a><a class="btn o" href="tel:+584244031596">Llamar</a></div></article>
+</div>
+<p style="margin-top:20px">¿Tu escuela no aparece? <a href="https://wa.me/584244525765?text=Hola%2C%20quiero%20agregar%20mi%20escuela%20en%20PEP" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">Escríbenos para agregarla</a>.</p>
+</div></section>
+
+<section id="registro"><div class="w rv two" style="align-items:start">
+<div><h2>Únete hoy y <span>sé parte del cambio</span></h2><p class="lead">Orden y Gestión para una educación y formación de calidad. Déjanos tus datos y te contactamos por WhatsApp.</p>
+<div class="cta" style="text-align:left;padding:24px"><b>Para todos los que educan, enseñan y transforman:</b><p style="margin-top:8px">Docentes · Estudiantes · Técnicos · Profesionales · Emprendedores · Comunidades</p></div></div>
+<form id="fm">
+<label>Nombre completo<input id="fn" required autocomplete="name"></label>
+<label>Soy<select id="fp"><option>Docente</option><option>Estudiante</option><option>Técnico</option><option>Profesional</option><option>Emprendedor</option><option>Comunidad</option></select></label>
+<label>Teléfono o correo<input id="fc" required autocomplete="tel"></label>
+<label>Municipio o parroquia<input id="fm2" placeholder="Ej: Los Guayos"></label>
+<button class="btn" type="submit">Registrarme</button>
+<div id="ok" role="status">¡Listo! Se abrirá WhatsApp para confirmar tu registro.</div>
+</form></div></section>
+</main>
+
+<footer><div class="w">
+<div class="fg">
+<div><h4>Portal PEP</h4><p>Conexión, conocimiento, oportunidades. Unidos por la educación, el aprendizaje y el desarrollo de Venezuela.</p></div>
+<div><h4>Explora</h4><a href="#educacion">Educación</a><a href="#carreras">Carreras</a><a href="#cursos">Cursos</a><a href="#escuelas">Escuelas</a></div>
+<div><h4>Otros portales</h4><a href="https://jhonmalorne.github.io/ConcertacionCODERE/" target="_blank" rel="noopener">CODERE · Deporte y Recreación</a><a href="https://jhonmalorne.github.io/ConcertacionAAS/" target="_blank" rel="noopener">AAS · Atención Avanzada en Salud</a></div>
+<div><h4>Síguenos</h4><div class="soc">
+<a href="#" aria-label="Facebook"><img src="icono%20de%20facebook.jpg" alt="Facebook"></a>
+<a href="#" aria-label="Instagram"><img src="icono%20de%20instagram.jpg" alt="Instagram"></a>
+<a href="#" aria-label="TikTok"><img src="icono%20tiktok.png" alt="TikTok"></a></div></div>
+</div>
+<div class="logos" style="margin-top:22px">
+<img src="logo%20concertacion%20sin%20fondo.png" alt="Concertación">
+<img src="ChatGPT%20Image%2017%20may%202026%2016_00_06.png" alt="Orden y Gestión">
+<img src="logo%20ass%20sin%20fondo.png" alt="AAS">
+</div>
+<p class="cp">© 2026 Concertación · Unidos para transformar · PEP</p>
+</div></footer>
+
+<a class="wa" href="https://wa.me/584244525765" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><img src="icono%20de%20whatsaap.jpg" alt="WhatsApp"></a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+/* ---- Tema ---- */
+const root=document.documentElement;
+let t=localStorage.getItem('pep-t')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+const setT=v=>{t=v;root.dataset.t=v;$('#th').textContent=v==='dark'?'☀️':'🌙';try{localStorage.setItem('pep-t',v)}catch(e){}};
+setT(t);$('#th').onclick=()=>setT(t==='dark'?'light':'dark');
+/* ---- Menú móvil ---- */
+$('#bg').onclick=e=>{const o=$('#nv').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o)};
+document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>$('#nv').classList.remove('open'));
+/* ---- Recursos por nivel (los PDF están en la misma carpeta del repo) ---- */
+const R={
+Preescolar:[['Fichas: busca y colorea los números del 1 al 20','fichas_busca_y_colorea_los_n%C3%BAmeros_del_1_al_20_elprofe20.pdf','Fichas'],['Cuadernillo abecedario: trazo, pintar y dibujo','Cuadernillo%20Abecedario%20trazo%20pintar%20y%20dibujo%20portaleducativo10.pdf','Cuadernillo']],
+Primaria:[['Guía para aprender a leer y escribir','guia%20aprender%20a%20leer%20y%20escribir.pdf','Guía'],['Materiales para trabajar lectoescritura','Materiales%20para%20trabajar%20lectoescritura.pdf','Material'],['Problemas matemáticos de primer grado','1%20PROBLEMAS%20Matematicos%20PRIMER%20GRADO.pdf','Matemática'],['Cuadernillo de repaso · primer grado','Cuadernillo_de_repaso_primer_grado_elprofe20.pdf','1.° grado'],['Cuadernillo de repaso · segundo grado','Cuadernillo_de_repaso_segundo_grado_elprofe20.pdf','2.° grado'],['Cuadernillo de repaso · tercer grado','Cuadernillo_repaso_escolar_tercer_grado.pdf','3.° grado'],['Cuadernillo de repaso · sexto grado','Cuadernillo_de_repaso_sexto_grado_elprofe20.pdf','6.° grado']],
+Secundaria:[],
+Bachillerato:[['Matemática · 1.er año de bachillerato','1ero%20bachillerato%20Matematica.pdf','1.° año'],['Matemática · 2.° año de bachillerato','2do%20Bachillerato%20Matematica.pdf','2.° año'],['Matemática · 3.er año de bachillerato','3ro%20Bachillerato%20de%20Matematica.pdf','3.° año']],
+'Técnica media':[]
+};
+let cur='Preescolar';
+function tabs(){$('#tb').innerHTML=Object.keys(R).map(k=>`<button class="tab" role="tab" aria-selected="${k===cur}" data-k="${k}">${k}</button>`).join('');
+$('#tb').querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=b.dataset.k;tabs();list()})}
+function list(){const a=R[cur];$('#rs').innerHTML=a.length?`<div class="res">${a.map(r=>`<a href="${r[1]}" target="_blank" rel="noopener"><span style="font-size:1.6rem">📄</span><span><b>${r[0]}</b><small>PDF · descarga gratis</small></span><span class="pill">${r[2]}</span></a>`).join('')}</div>`:
+`<div class="empty"><b>${cur==='Técnica media'?'Elige tu carrera técnica en INCES':'Pronto habrá material para '+cur}</b><p style="margin:8px 0 14px">${cur==='Técnica media'?'Filtra la carrera que te gusta y crea tu cuenta.':'¿Tienes guías para compartir? Envíalas por WhatsApp.'}</p><a class="btn" ${cur==='Técnica media'?'href="https://hacer.inces.gob.ve/"':'href="https://wa.me/584244525765"'} target="_blank" rel="noopener">${cur==='Técnica media'?'Ir a INCES':'Enviar material'}</a></div>`}
+tabs();list();
+/* ---- Carreras ---- */
+const C=[
+['Fundametal','https://fundametal.edu.ve/estudios-superiores/',['TSU en Cervecería','Ingeniería en Molinería','Lic. en Contaduría Pública','Lic. en Administración de Empresas','Lic. en Tecnología Educativa','Lic. en Gestión de la Industria de la Hospitalidad']],
+['UC · Ciencias de la Salud','https://www.fcs.uc.edu.ve/',['Medicina','Bioanálisis','Odontología','Enfermería (Lic. y TSU)','Fisioterapia','Imagenología','Citotecnología','Histotecnología','Tecnología Cardiopulmonar','Terapia Psicosocial','Registros y Estadísticas de Salud']],
+['UC · Ingeniería, Arquitectura y Tecnología','https://dae.ing.uc.edu.ve/portal/',['Ingeniería Civil','Ingeniería Eléctrica','Ingeniería Industrial','Ingeniería Mecánica','Ingeniería Química','Ingeniería de Telecomunicaciones','Computación']],
+['UC · Ciencias Económicas y Sociales (FACES)','https://faces.uc.edu.ve/',['Administración Comercial','Contaduría Pública','Economía','Relaciones Industriales','Ciencias Fiscales']],
+['UC · Ciencias Jurídicas y Políticas','https://fcjp.uc.edu.ve/site/',['Derecho','Estudios Políticos','Ciencias Forenses']],
+['UC · Ciencias de la Educación','https://face.uc.edu.ve/',['Educación (varias menciones y especialidades)']],
+['UC · FACYT (Ciencias y Tecnología)','https://www.facyt.uc.edu.ve/web/',['Biología','Física','Matemática','Química']],
+['Universidad Nacional Abierta (UNA)','https://carabobounablog.wordpress.com/',['Administración de Empresas','Administración: Riesgos y Seguros','Contaduría Pública','Educación Especial en Dificultades del Aprendizaje','Educación Integral','Educación Integral (Técnica)','Educación mención Matemática','Educación Preescolar','Ingeniería de Sistemas','Ingeniería Industrial','Matemática']]
+];
+function cr(f=''){f=f.toLowerCase().trim();let n=0;
+$('#cr').innerHTML=C.map(([t,u,l])=>{const m=l.filter(x=>x.toLowerCase().includes(f)||t.toLowerCase().includes(f));if(!m.length)return'';n++;
+return`<details ${f?'open':''}><summary>${t} <small style="color:var(--mut);font-weight:500">${m.length} carreras</small></summary><ul>${m.map(x=>`<li>${x}</li>`).join('')}</ul><a class="l" href="${u}" target="_blank" rel="noopener">Sitio oficial</a></details>`}).join('');
+$('#ne').hidden=n>0}
+cr();$('#q').oninput=e=>cr(e.target.value);
+/* ---- Mapa (Leaflet + geoBoundaries del repo) ---- */
+(function(){
+if(!window.L){$('#map').innerHTML='<p class="empty">No se pudo cargar el mapa. Revisa tu conexión.</p>';return}
+const map=L.map('map',{scrollWheelZoom:false}).setView([10.18,-67.91],11);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(map);
+L.marker([10.188746,-67.917062]).addTo(map).bindPopup('<b>Escuela Básica Batalla de Junín</b><br>Pública');
+L.marker([10.169263,-67.912362]).addTo(map).bindPopup('<b>U.E. Santa Sofía</b><br>Privada');
+let gl;
+const load=f=>{if(gl)map.removeLayer(gl);fetch(f).then(r=>r.json()).then(d=>{gl=L.geoJSON(d,{style:{color:'#1740a8',weight:1,fillColor:'#6db33f',fillOpacity:.12},onEachFeature:(x,l)=>l.bindTooltip(x.properties.shapeName||'')}).addTo(map);gl.bringToBack()}).catch(()=>{})};
+$('#m1').onclick=()=>load('geoBoundaries-VEN-ADM1_simplified.geojson');
+$('#m2').onclick=()=>load('geoBoundaries-VEN-ADM2_simplified.geojson');
+})();
+/* ---- Registro: guarda local y confirma por WhatsApp ---- */
+$('#fm').onsubmit=e=>{e.preventDefault();
+const d={n:$('#fn').value,p:$('#fp').value,c:$('#fc').value,m:$('#fm2').value,f:new Date().toISOString()};
+try{const a=JSON.parse(localStorage.getItem('pep-reg')||'[]');a.push(d);localStorage.setItem('pep-reg',JSON.stringify(a))}catch(x){}
+$('#ok').style.display='block';
+const msg=`Hola, quiero registrarme en PEP.%0ANombre: ${encodeURIComponent(d.n)}%0APerfil: ${encodeURIComponent(d.p)}%0AContacto: ${encodeURIComponent(d.c)}%0AZona: ${encodeURIComponent(d.m)}`;
+setTimeout(()=>window.open('https://wa.me/584244525765?text='+msg,'_blank'),700);e.target.reset()};
+/* ---- Contadores y aparición ---- */
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(!x.isIntersecting)return;x.target.classList.add('in');io.unobserve(x.target)}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(x=>io.observe(x));
+const so=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;so.disconnect();
+document.querySelectorAll('[data-n]').forEach(el=>{const n=+el.dataset.n,s=el.dataset.s||'+';let i=0;const k=setInterval(()=>{i+=Math.ceil(n/40);if(i>=n){i=n;clearInterval(k)}el.textContent=i+(i===n?s:'')},30)})});
+so.observe($('#st'));
+/* ---- Menú activo ---- */
+const sec=[...document.querySelectorAll('main section[id]')];
+addEventListener('scroll',()=>{let c='';sec.forEach(s=>{if(scrollY>=s.offsetTop-120)c=s.id});document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+c))},{passive:true});
+</script>
+</body>
+</html>
