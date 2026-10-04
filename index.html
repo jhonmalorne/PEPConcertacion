@@ -109,6 +109,14 @@ footer a:hover{color:var(--green)}
 .rv{opacity:0;transform:translateY(18px);transition:.6s}
 .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+.yc{display:flex;flex-direction:column;gap:8px;text-decoration:none}
+.yc .top{display:flex;align-items:center;gap:12px}
+.yc .av{width:46px;height:46px;border-radius:12px;background:var(--red);display:grid;place-items:center;font-size:1.4rem;flex:none}
+.yc h3{font-size:1.05rem;color:var(--navy)}
+[data-t=dark] .yc h3{color:#fff}
+.yc p{font-size:.9rem;color:var(--mut);flex:1}
+.yc .go{color:var(--blue);font-weight:700;font-size:.9rem}
+[data-t=dark] .yc .go{color:#8fb0ff}
 </style>
 </head>
 <body>
@@ -117,7 +125,7 @@ footer a:hover{color:var(--green)}
 <img src="logo%20concertacion%20sin%20fondo.png" alt="Concertación" onerror="this.remove()">
 <div class="brand">PEP<small>Portal de Estudiantes y Profesionales</small></div>
 <nav id="nv" aria-label="Principal"><ul>
-<li><a href="#educacion">Educación</a></li><li><a href="#carreras">Carreras</a></li><li><a href="#cursos">Cursos</a></li><li><a href="#escuelas">Escuelas</a></li><li><a href="#registro">Regístrate</a></li></ul></nav>
+<li><a href="#educacion">Educación</a></li><li><a href="#carreras">Carreras</a></li><li><a href="#cursos">Cursos</a></li><li><a href="#escuelas">Escuelas</a></li><li><a href="#videos">Videos</a></li><li><a href="#registro">Regístrate</a></li></ul></nav>
 <button class="ib" id="th" aria-label="Cambiar tema claro u oscuro">🌙</button>
 <button class="ib" id="bg" aria-label="Abrir menú" aria-expanded="false">☰</button>
 </div>
@@ -195,6 +203,13 @@ footer a:hover{color:var(--green)}
 <p style="margin-top:20px">¿Tu escuela no aparece? <a href="https://wa.me/584244525765?text=Hola%2C%20quiero%20agregar%20mi%20escuela%20en%20PEP" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">Escríbenos para agregarla</a>.</p>
 </div></section>
 
+<section id="videos"><div class="w rv">
+<h2>Canales de YouTube <span>para aprender</span></h2>
+<p class="lead">Una selección de canales educativos gratuitos. Filtra por la edad o el nivel.</p>
+<div class="tabs" id="yt-f" role="group" aria-label="Filtrar canales"></div>
+<div class="grid" id="yt"></div>
+</div></section>
+
 <section id="registro"><div class="w rv two" style="align-items:start">
 <div><h2>Únete hoy y <span>sé parte del cambio</span></h2><p class="lead">Orden y Gestión para una educación y formación de calidad. Déjanos tus datos y te contactamos por WhatsApp.</p>
 <div class="cta" style="text-align:left;padding:24px"><b>Para todos los que educan, enseñan y transforman:</b><p style="margin-top:8px">Docentes · Estudiantes · Técnicos · Profesionales · Emprendedores · Comunidades</p></div></div>
@@ -211,7 +226,7 @@ footer a:hover{color:var(--green)}
 <footer><div class="w">
 <div class="fg">
 <div><h4>Portal PEP</h4><p>Conexión, conocimiento, oportunidades. Unidos por la educación, el aprendizaje y el desarrollo de Venezuela.</p></div>
-<div><h4>Explora</h4><a href="#educacion">Educación</a><a href="#carreras">Carreras</a><a href="#cursos">Cursos</a><a href="#escuelas">Escuelas</a></div>
+<div><h4>Explora</h4><a href="#educacion">Educación</a><a href="#carreras">Carreras</a><a href="#cursos">Cursos</a><a href="#escuelas">Escuelas</a><a href="#videos">Canales de YouTube</a></div>
 <div><h4>Otros portales</h4><a href="https://jhonmalorne.github.io/ConcertacionCODERE/" target="_blank" rel="noopener">CODERE · Deporte y Recreación</a><a href="https://jhonmalorne.github.io/ConcertacionAAS/" target="_blank" rel="noopener">AAS · Atención Avanzada en Salud</a></div>
 <div><h4>Síguenos</h4><div class="soc">
 <a href="#" aria-label="Facebook"><img src="icono%20de%20facebook.jpg" alt="Facebook"></a>
@@ -269,6 +284,25 @@ $('#cr').innerHTML=C.map(([t,u,l])=>{const m=l.filter(x=>x.toLowerCase().include
 return`<details ${f?'open':''}><summary>${t} <small style="color:var(--mut);font-weight:500">${m.length} carreras</small></summary><ul>${m.map(x=>`<li>${x}</li>`).join('')}</ul><a class="l" href="${u}" target="_blank" rel="noopener">Sitio oficial</a></details>`}).join('');
 $('#ne').hidden=n>0}
 cr();$('#q').oninput=e=>cr(e.target.value);
+/* ---- Canales de YouTube ---- */
+const Y=[
+['Aventuras con los Kratt','@AventurasconlosKratt','🦁','Primaria','Los hermanos Kratt recorren el mundo para conocer animales y rescatarlos con sus trajes de animal.'],
+['Numberblocks en español','@numberblocks_es','🔢','Preescolar','Aprende los números y a contar con bloques de colores que tienen personalidad.'],
+['Leo el Explorador','@LeoElExplorador','🐾','Primaria','Mini episodios y diarios de animales para conocer el comportamiento del reino animal.'],
+['Smile and Learn','@SmileandLearnEspa%C3%B1ol','😊','Preescolar','Cuentos con valores, matemáticas, geografía, emociones y yoga para niños de 3 a 12 años.'],
+['Aprende Peque','@aprendepeque','🧸','Preescolar','Estimulación del lenguaje y del desarrollo cognitivo con la maestra Isa, especialista en educación especial.'],
+['Daniel Carreón','@danielcarreon','➕','Primaria','Clases para aprender los números con un profesor paso a paso.'],
+['ABC a Diario Aprendo','@ABCAdiarioaprendo','🔤','Preescolar','Abecedario, números, animales y sílabas con videos interactivos todos los días.'],
+['Unicoos','@unicoos','📐','Bachillerato','Matemáticas, física, química, dibujo técnico y tecnología para secundaria, bachillerato y universidad.'],
+['Quantum Fracture','@QuantumFracture','🔭','Bachillerato','Ciencia con animaciones sobre el lado más curioso del universo.'],
+['ArteHistoria','@ArteHistoria','🏛️','Bachillerato','Arte e historia en español, con contenidos avalados por especialistas universitarios.']
+];
+let yf='Todos';
+function yt(){const L=['Todos','Preescolar','Primaria','Bachillerato'];
+$('#yt-f').innerHTML=L.map(k=>`<button class="tab" aria-pressed="${k===yf}" aria-selected="${k===yf}" data-k="${k}">${k}</button>`).join('');
+$('#yt-f').querySelectorAll('button').forEach(b=>b.onclick=()=>{yf=b.dataset.k;yt()});
+$('#yt').innerHTML=Y.filter(c=>yf==='Todos'||c[3]===yf).map(c=>`<a class="card yc" href="https://www.youtube.com/${c[1]}" target="_blank" rel="noopener"><div class="top"><div class="av">${c[2]}</div><div><h3>${c[0]}</h3><span class="pill" style="margin:4px 0 0;display:inline-block;background:var(--blue)">${c[3]}</span></div></div><p>${c[4]}</p><span class="go">Ver canal</span></a>`).join('')}
+yt();
 /* ---- Mapa (Leaflet + geoBoundaries del repo) ---- */
 (function(){
 if(!window.L){$('#map').innerHTML='<p class="empty">No se pudo cargar el mapa. Revisa tu conexión.</p>';return}
