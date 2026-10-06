@@ -117,6 +117,7 @@ footer a:hover{color:var(--green)}
 .yc p{font-size:.9rem;color:var(--mut);flex:1}
 .yc .go{color:var(--blue);font-weight:700;font-size:.9rem}
 [data-t=dark] .yc .go{color:#8fb0ff}
+[data-t=dark] .ph{color:#fff!important}
 </style>
 </head>
 <body>
@@ -179,7 +180,7 @@ footer a:hover{color:var(--green)}
 <h2>Cursos <span>para emprendedores</span></h2>
 <p class="lead">Un espacio para que los jóvenes aprendan un oficio. Vende tu talento y prepara el futuro.</p>
 <div class="two">
-<div class="card course"><span class="pill" style="margin:0">Curso</span><h3>Aprende Refrigeración Con Refrimat-JG Contacta y Cotiza</h3><p style="color:var(--mut)">REFRIMAT-JG</p><div class="btns" style="margin-top:14px"><a class="btn" href="https://wa.me/584129554365?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20curso%20de%20refrigeraci%C3%B3n%20REFRIMAT-JG" target="_blank" rel="noopener">Solicita la información</a><a class="btn o" href="tel:+584129554365">0412-9554365</a></div></div>
+<div class="card course"><span class="pill" style="margin:0">Curso</span><h3>Técnico en refrigeración</h3><p style="color:var(--mut)">REFRIMAT-JG</p><div class="btns" style="margin-top:14px"><a class="btn" href="https://wa.me/584129554365?text=Hola%2C%20quiero%20informaci%C3%B3n%20del%20curso%20de%20refrigeraci%C3%B3n%20REFRIMAT-JG" target="_blank" rel="noopener">Solicita la información</a><a class="btn o" href="tel:+584129554365">0412-9554365</a></div></div>
 <div class="card" style="border:2px dashed var(--green)"><h3>¿Das capacitaciones?</h3><p style="color:var(--mut);margin:6px 0 14px">Se irán agregando más cursos. Contáctanos para publicar tu ficha de capacitación.</p><a class="btn" href="https://wa.me/584244525765?text=Hola%2C%20quiero%20agregar%20mi%20ficha%20de%20capacitaci%C3%B3n%20en%20PEP" target="_blank" rel="noopener">Agregar mi ficha</a></div>
 </div></div></section>
 
@@ -265,8 +266,26 @@ Bachillerato:[['Matemática · 1.er año de bachillerato','1ero%20bachillerato%2
 let cur='Preescolar';
 function tabs(){$('#tb').innerHTML=Object.keys(R).map(k=>`<button class="tab" role="tab" aria-selected="${k===cur}" data-k="${k}">${k}</button>`).join('');
 $('#tb').querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=b.dataset.k;tabs();list()})}
-function list(){const a=R[cur];$('#rs').innerHTML=a.length?`<div class="res">${a.map(r=>`<a href="${r[1]}" target="_blank" rel="noopener"><span style="font-size:1.6rem">📄</span><span><b>${r[0]}</b><small>PDF · descarga gratis</small></span><span class="pill">${r[2]}</span></a>`).join('')}</div>`:
-`<div class="empty"><b>${cur==='Técnica media'?'Elige tu carrera técnica en INCES':'Pronto habrá material para '+cur}</b><p style="margin:8px 0 14px">${cur==='Técnica media'?'Filtra la carrera que te gusta y crea tu cuenta.':'¿Tienes guías para compartir? Envíalas por WhatsApp.'}</p><a class="btn" ${cur==='Técnica media'?'href="https://hacer.inces.gob.ve/"':'href="https://wa.me/584244525765"'} target="_blank" rel="noopener">${cur==='Técnica media'?'Ir a INCES':'Enviar material'}</a></div>`}
+const W=[
+['Portal Educativo 10','https://portaleducativo10.com/','Contenido para preescolar y primaria.','🍎',['Preescolar','Primaria']],
+['Manualidades Educativas','https://www.manualidadeseducativas.com/','Contenido para preescolar y primaria.','✂️',['Preescolar','Primaria']],
+['Mundo Primaria','https://www.mundoprimaria.com/','Miles de fichas en PDF, juegos interactivos, dibujos para colorear, cuentos y lecturas de comprensión.','🌎',['Preescolar','Primaria']],
+['ArbolABC','https://arbolabc.com/','Juegos, canciones, adivinanzas y fichas de trazos, letras, números y vocabulario (3 a 10 años).','🌳',['Preescolar','Primaria']],
+['Actiludis','https://www.actiludis.com/','Fichas en PDF de descarga directa: cálculo mental ABN, comprensión lectora y atención.','🧩',['Preescolar','Primaria']],
+['Cuentos para Crecer','https://cuentosparacrecer.org/','Lectoescritura, lecturas guiadas y desarrollo socioemocional.','📖',['Preescolar','Primaria']],
+['Colombia Aprende','https://www.colombiaprende.edu.co/','Guías del docente, fichas y actividades interactivas por grado y materia.','📚',['Preescolar','Primaria','Secundaria','Bachillerato']],
+['Khan Academy','https://es.khanacademy.org/','Lecciones en video y ejercicios de matemática, física, química, biología y programación.','🎓',['Primaria','Secundaria','Bachillerato']],
+['Eduteka','https://eduteka.icesi.edu.co/','Proyectos de aula, rúbricas, herramientas TIC y guías de planificación docente.','🧑‍🏫',['Primaria','Secundaria','Bachillerato']],
+['Proyecto CIDEAD','https://recursostic.educacion.es/','Unidades didácticas interactivas de geografía e historia, biología, física, química y matemática.','🔬',['Secundaria','Bachillerato']],
+['Superprof · Apuntes','https://www.superprof.es/apuntes/','Conceptos explicados, resúmenes y ejercicios resueltos de química, física y matemática.','✏️',['Secundaria','Bachillerato']],
+['GeoGebra','https://www.geogebra.org/','Calculadora gráfica y simulaciones de geometría, álgebra, cálculo y física.','📐',['Primaria','Secundaria','Bachillerato']]
+];
+function list(){const a=R[cur];
+let h=a.length?`<div class="res">${a.map(r=>`<a href="${r[1]}" target="_blank" rel="noopener"><span style="font-size:1.6rem">📄</span><span><b>${r[0]}</b><small>PDF · descarga gratis</small></span><span class="pill">${r[2]}</span></a>`).join('')}</div>`:'';
+if(cur==='Técnica media')h=`<div class="empty"><b>Elige tu carrera técnica en INCES</b><p style="margin:8px 0 14px">Filtra la carrera que te gusta y crea tu cuenta.</p><a class="btn" href="https://hacer.inces.gob.ve/" target="_blank" rel="noopener">Ir a INCES</a></div>`;
+const w=W.filter(x=>x[4].includes(cur));
+if(w.length)h+=`<h3 style="margin:26px 0 14px;color:var(--navy)" class="ph">Portales recomendados para ${cur.toLowerCase()}</h3><div class="grid">${w.map(x=>`<a class="card yc" href="${x[1]}" target="_blank" rel="noopener"><div class="top"><div class="av" style="background:var(--blue)">${x[3]}</div><h3>${x[0]}</h3></div><p>${x[2]}</p><span class="go">Visitar portal</span></a>`).join('')}</div>`;
+$('#rs').innerHTML=h}
 tabs();list();
 /* ---- Carreras ---- */
 const C=[
