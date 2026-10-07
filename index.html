@@ -118,6 +118,22 @@ footer a:hover{color:var(--green)}
 .yc .go{color:var(--blue);font-weight:700;font-size:.9rem}
 [data-t=dark] .yc .go{color:#8fb0ff}
 [data-t=dark] .ph{color:#fff!important}
+.nw{position:relative}
+.strip{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 14px;scrollbar-width:thin}
+.ni{flex:0 0 min(88%,460px);scroll-snap-align:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:zoom-in;box-shadow:0 10px 26px #0b2a6f1f;transition:transform .2s}
+.ni:hover{transform:translateY(-4px)}
+.ni .im{height:400px;background:#0b2a6f;display:grid;place-items:center}
+.ni img{width:100%;height:100%;object-fit:contain}
+.ni p{padding:12px 16px;font-weight:700;color:var(--navy);border-top:4px solid var(--green)}
+[data-t=dark] .ni p{color:#fff}
+.ar{position:absolute;top:42%;z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:var(--navy);color:#fff;font-size:1.6rem;cursor:pointer;box-shadow:0 4px 14px #0005}
+.ar.l{left:-6px}.ar.r{right:-6px}
+.dots{display:flex;gap:8px;justify-content:center;margin-top:6px}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line);cursor:pointer}
+.dots i.on{background:var(--green);width:26px;border-radius:99px}
+#lb{position:fixed;inset:0;background:#000d;z-index:100;display:none;place-items:center;padding:16px;cursor:zoom-out}
+#lb.on{display:grid}
+#lb img{max-width:100%;max-height:92vh;border-radius:10px}
 </style>
 </head>
 <body>
@@ -126,7 +142,7 @@ footer a:hover{color:var(--green)}
 <img src="logo%20concertacion%20sin%20fondo.png" alt="Concertación" onerror="this.remove()">
 <div class="brand">PEP<small>Portal de Estudiantes y Profesionales</small></div>
 <nav id="nv" aria-label="Principal"><ul>
-<li><a href="#educacion">Educación</a></li><li><a href="#carreras">Carreras</a></li><li><a href="#cursos">Cursos</a></li><li><a href="#escuelas">Escuelas</a></li><li><a href="#videos">Videos</a></li><li><a href="#registro">Regístrate</a></li></ul></nav>
+<li><a href="#noticias">Noticias</a></li><li><a href="#educacion">Educación</a></li><li><a href="#carreras">Carreras</a></li><li><a href="#cursos">Cursos</a></li><li><a href="#escuelas">Escuelas</a></li><li><a href="#videos">Videos</a></li><li><a href="#registro">Regístrate</a></li></ul></nav>
 <button class="ib" id="th" aria-label="Cambiar tema claro u oscuro">🌙</button>
 <button class="ib" id="bg" aria-label="Abrir menú" aria-expanded="false">☰</button>
 </div>
@@ -137,7 +153,7 @@ footer a:hover{color:var(--green)}
 <img class="ban" src="PEP.png" alt="PEP: Portal de Estudiantes y Profesionales. Conexión, conocimiento, oportunidades.">
 <div class="tag">
 <h1>Donde docentes, técnicos y profesionales se <b>organizan</b>, <i>aprenden</i> y transforman vidas.</h1>
-<div class="btns"><a class="btn" href="#registro">Regístrate gratis</a><a class="btn o" href="#educacion">Ver recursos</a></div>
+<div class="btns"><a class="btn" href="https://forms.gle/Z9YHwZKqSUqgCr396" target="_blank" rel="noopener">Regístrate gratis</a><a class="btn o" href="#educacion">Ver recursos</a></div>
 </div>
 <div class="stats" id="st">
 <div class="stat"><b data-n="5">0</b>Niveles educativos</div>
@@ -156,6 +172,13 @@ footer a:hover{color:var(--green)}
 <div class="card"><div class="ic">🔧</div><h3>Enseña oficios</h3><p>Comparte tus conocimientos y forma nuevas habilidades.</p></div>
 <div class="card"><div class="ic">💼</div><h3>Oportunidades</h3><p>Conecta, colabora y accede a proyectos, cursos y alianzas.</p></div>
 </div></div></section>
+
+<section id="noticias"><div class="w rv">
+<h2>Noticias <span>PEP</span></h2>
+<p class="lead">Lo último del portal y de la comunidad educativa. Desliza la cinta o toca una imagen para verla completa.</p>
+<div class="nw"><button class="ar l" id="np" aria-label="Noticia anterior">‹</button><div class="strip" id="ns" tabindex="0" aria-label="Cinta de noticias"></div><button class="ar r" id="nn" aria-label="Noticia siguiente">›</button></div>
+<div class="dots" id="nd"></div>
+</div></section>
 
 <section id="educacion"><div class="w rv">
 <h2>Educación <span>para todos</span></h2>
@@ -214,20 +237,20 @@ footer a:hover{color:var(--green)}
 <section id="registro"><div class="w rv two" style="align-items:start">
 <div><h2>Únete hoy y <span>sé parte del cambio</span></h2><p class="lead">Orden y Gestión para una educación y formación de calidad. Déjanos tus datos y te contactamos por WhatsApp.</p>
 <div class="cta" style="text-align:left;padding:24px"><b>Para todos los que educan, enseñan y transforman:</b><p style="margin-top:8px">Docentes · Estudiantes · Técnicos · Profesionales · Emprendedores · Comunidades</p></div></div>
-<form id="fm">
+<div><a class="btn" style="display:block;text-align:center;margin-bottom:14px;font-size:1.1rem" href="https://forms.gle/Z9YHwZKqSUqgCr396" target="_blank" rel="noopener">📝 Regístrate en el formulario oficial</a><form id="fm">
 <label>Nombre completo<input id="fn" required autocomplete="name"></label>
 <label>Soy<select id="fp"><option>Docente</option><option>Estudiante</option><option>Técnico</option><option>Profesional</option><option>Emprendedor</option><option>Comunidad</option></select></label>
 <label>Teléfono o correo<input id="fc" required autocomplete="tel"></label>
 <label>Municipio o parroquia<input id="fm2" placeholder="Ej: Los Guayos"></label>
 <button class="btn" type="submit">Registrarme</button>
 <div id="ok" role="status">¡Listo! Se abrirá WhatsApp para confirmar tu registro.</div>
-</form></div></section>
+</form></div></div></section>
 </main>
 
 <footer><div class="w">
 <div class="fg">
 <div><h4>Portal PEP</h4><p>Conexión, conocimiento, oportunidades. Unidos por la educación, el aprendizaje y el desarrollo de Venezuela.</p></div>
-<div><h4>Explora</h4><a href="#educacion">Educación</a><a href="#carreras">Carreras</a><a href="#cursos">Cursos</a><a href="#escuelas">Escuelas</a><a href="#videos">Canales de YouTube</a></div>
+<div><h4>Explora</h4><a href="#noticias">Noticias</a><a href="#educacion">Educación</a><a href="#carreras">Carreras</a><a href="#cursos">Cursos</a><a href="#escuelas">Escuelas</a><a href="#videos">Canales de YouTube</a></div>
 <div><h4>Otros portales</h4><a href="https://jhonmalorne.github.io/ConcertacionCODERE/" target="_blank" rel="noopener">CODERE · Deporte y Recreación</a><a href="https://jhonmalorne.github.io/ConcertacionAAS/" target="_blank" rel="noopener">AAS · Atención Avanzada en Salud</a></div>
 <div><h4>Síguenos</h4><div class="soc">
 <a href="#" aria-label="Facebook"><img src="icono%20de%20facebook.jpg" alt="Facebook"></a>
@@ -255,6 +278,28 @@ setT(t);$('#th').onclick=()=>setT(t==='dark'?'light':'dark');
 /* ---- Menú móvil ---- */
 $('#bg').onclick=e=>{const o=$('#nv').classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',o)};
 document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>$('#nv').classList.remove('open'));
+/* ---- Noticias: cinta de imágenes (agrega más objetos a N) ---- */
+const N=[
+['Noticias%20origen%20de%20PEP.jpg','Origen de PEP'],
+['Noticias%20Apoyo%20para%20docentes.png','Apoyo para docentes'],
+['Noticias%20Maria%20corina%20machado%20y%20baldwyn%20Mujica.png','María Corina Machado y Baldwyn Mujica']
+];
+const ns=$('#ns');let ni=0,paused=false;
+ns.innerHTML=N.map((n,i)=>`<article class="ni" data-i="${i}"><div class="im"><img src="${n[0]}" alt="${n[1]}" loading="lazy"></div><p>${n[1]}</p></article>`).join('');
+$('#nd').innerHTML=N.map((n,i)=>`<i data-i="${i}" role="button" aria-label="Ir a noticia ${i+1}"></i>`).join('');
+const go=i=>{ni=(i+N.length)%N.length;const el=ns.children[ni];ns.scrollTo({left:el.offsetLeft-(ns.clientWidth-el.clientWidth)/2,behavior:'smooth'});dots()};
+const dots=()=>document.querySelectorAll('#nd i').forEach((d,i)=>d.classList.toggle('on',i===ni));
+dots();
+$('#np').onclick=()=>go(ni-1);$('#nn').onclick=()=>go(ni+1);
+$('#nd').onclick=e=>{if(e.target.dataset.i)go(+e.target.dataset.i)};
+ns.addEventListener('scroll',()=>{let b=0,m=1e9;[...ns.children].forEach((c,i)=>{const d=Math.abs(c.offsetLeft+c.clientWidth/2-ns.scrollLeft-ns.clientWidth/2);if(d<m){m=d;b=i}});if(b!==ni){ni=b;dots()}},{passive:true});
+['mouseenter','touchstart','focusin'].forEach(v=>ns.addEventListener(v,()=>paused=true,{passive:true}));
+['mouseleave','focusout'].forEach(v=>ns.addEventListener(v,()=>paused=false));
+setInterval(()=>{if(!paused&&!document.hidden&&matchMedia('(prefers-reduced-motion:no-preference)').matches)go(ni+1)},4500);
+const lb=document.createElement('div');lb.id='lb';lb.innerHTML='<img alt="">';document.body.appendChild(lb);
+lb.onclick=()=>lb.classList.remove('on');
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+ns.onclick=e=>{const c=e.target.closest('.ni');if(c){lb.querySelector('img').src=N[c.dataset.i][0];lb.querySelector('img').alt=N[c.dataset.i][1];lb.classList.add('on')}};
 /* ---- Recursos por nivel (los PDF están en la misma carpeta del repo) ---- */
 const R={
 Preescolar:[['Fichas: busca y colorea los números del 1 al 20','fichas_busca_y_colorea_los_n%C3%BAmeros_del_1_al_20_elprofe20.pdf','Fichas'],['Cuadernillo abecedario: trazo, pintar y dibujo','Cuadernillo%20Abecedario%20trazo%20pintar%20y%20dibujo%20portaleducativo10.pdf','Cuadernillo']],
