@@ -134,6 +134,7 @@ footer a:hover{color:var(--green)}
 #lb{position:fixed;inset:0;background:#000d;z-index:100;display:none;place-items:center;padding:16px;cursor:zoom-out}
 #lb.on{display:grid}
 #lb img{max-width:100%;max-height:92vh;border-radius:10px}
+.sp{width:100%;height:190px;object-fit:cover;border-radius:12px;margin-bottom:14px}
 </style>
 </head>
 <body>
@@ -213,12 +214,12 @@ footer a:hover{color:var(--green)}
 <div id="map" role="region" aria-label="Mapa de escuelas"></div>
 <div class="btns" style="margin-bottom:18px"><button class="btn o" id="m1">Estados</button><button class="btn o" id="m2">Municipios y parroquias</button></div>
 <div class="two">
-<article class="card sch"><span class="pill" style="margin:0 0 8px">Pública</span><h3>Escuela Básica Batalla de Junín</h3>
+<article class="card sch"><img class="sp" src="Escuela%20Batalla%20de%20Junin.jpeg" alt="Escuela Básica Batalla de Junín" loading="lazy" onerror="this.remove()"><span class="pill" style="margin:0 0 8px">Pública</span><h3>Escuela Básica Batalla de Junín</h3>
 <p>📍 Vivienda Popular de Los Guayos, II Etapa, Sector 3, Transversal 4 con Calle 1.</p>
 <p>🕖 Lunes a viernes, 7:00 AM a 5:00 PM.</p>
 <p>🎓 Inicial, básica y media general, con música, deporte y tareas dirigidas.</p>
 <div class="btns"><a class="btn" href="https://www.google.com/maps?q=10.188746422836239,-67.91706190123529" target="_blank" rel="noopener">Cómo llegar</a></div></article>
-<article class="card sch"><span class="pill" style="margin:0 0 8px;background:var(--blue)">Privada</span><h3>Unidad Educativa Santa Sofía</h3>
+<article class="card sch"><img class="sp" src="Escuela%20Santa%20sofia.png" alt="Unidad Educativa Santa Sofía" loading="lazy" onerror="this.remove()"><span class="pill" style="margin:0 0 8px;background:var(--blue)">Privada</span><h3>Unidad Educativa Santa Sofía</h3>
 <p>📍 Urb. Los Cerritos, Paraparal, Los Guayos.</p>
 <p>🎓 Primaria (1.° a 6.°) y Media General (1.° a 5.° año).</p>
 <p>📞 +58 424-4031596 · Instagram y TikTok @uesantasofia</p>
@@ -282,7 +283,11 @@ document.querySelectorAll('nav a').forEach(a=>a.onclick=()=>$('#nv').classList.r
 const N=[
 ['Noticias%20origen%20de%20PEP.jpg','Origen de PEP'],
 ['Noticias%20Apoyo%20para%20docentes.png','Apoyo para docentes'],
-['Noticias%20Maria%20corina%20machado%20y%20baldwyn%20Mujica.png','María Corina Machado y Baldwyn Mujica']
+['Noticias%20Maria%20corina%20machado%20y%20baldwyn%20Mujica.png','María Corina Machado y Baldwyn Mujica'],
+['Noticias%20Propuesta%20CIS.png','Propuesta CIS'],
+['Noticias%20Propuesta%20AAS.jpg','Propuesta AAS'],
+['Noticias%20Codere.jpeg','CODERE'],
+['Noticias%20ACARI.jpg','ACARI']
 ];
 const ns=$('#ns');let ni=0,paused=false;
 ns.innerHTML=N.map((n,i)=>`<article class="ni" data-i="${i}"><div class="im"><img src="${n[0]}" alt="${n[1]}" loading="lazy"></div><p>${n[1]}</p></article>`).join('');
